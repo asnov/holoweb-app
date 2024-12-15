@@ -11,7 +11,17 @@ import SwiftUI
 struct HoloWebClipApp: App {
     var body: some Scene {
         WindowGroup {
+
             ContentView()
+                .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
+                    guard let incomingURL = userActivity.webpageURL,
+                          let components = URLComponents(url: incomingURL, resolvingAgainstBaseURL: true)
+                    else { return }
+                    print("ClipApp incomingURL: \(incomingURL)")
+                    print("ClipApp components: \(components)")
+
+                }
+
         }
     }
 }

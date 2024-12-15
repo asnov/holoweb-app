@@ -8,7 +8,17 @@ import SwiftUI
 struct HoloWebApp: App {
     var body: some Scene {
         WindowGroup {
+            
             ContentView()
+                .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
+                    guard let incomingURL = userActivity.webpageURL,
+                          let components = URLComponents(url: incomingURL, resolvingAgainstBaseURL: true)
+                    else { return }
+                    print("App incomingURL: \(incomingURL)")
+                    print("App components: \(components)")
+                    
+                }
+            
         }
     }
 }
