@@ -53,19 +53,20 @@ struct ContentView: View {
                     Button(action: {
                         // TODO: Share action
                     }) {
-                        Image(systemName: "square.and.arrow.up")
+//                        Image(systemName: "square.and.arrow.up")
+                        Image("arrow-box")
                     }
                     
                     Button(action: {
                         webView.goHome()
                     }) {
-                        Image(systemName: "house")
+                        Image("home-arrow")
                     }
                     
                     Button(action: {
                         // TODO: Screen list action
                     }) {
-                        Image(systemName: "square.grid.2x2")
+                        Image("four-squares")
                     }
                 }
                 .padding()

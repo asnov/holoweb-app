@@ -1,5 +1,5 @@
 //
-//  ContentView-ViewModel.swift
+//  WebView-ViewModel.swift
 //  HoloWeb
 //
 //  Created by Alex on 04/12/2024.
