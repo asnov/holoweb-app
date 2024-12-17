@@ -45,6 +45,7 @@ extension WebView: UIViewRepresentable {
         }
         
         webConfiguration.userContentController.add(Coordinator(self), name: "logHandler")
+        webConfiguration.userContentController.add(Coordinator(self), name: "requestSession")
         
         let webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.allowsBackForwardNavigationGestures = true

@@ -26,10 +26,23 @@ extension WebView {
         }
         
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-            if message.name == "logHandler", let logMessage = message.body as? String {
+            guard let logMessage = message.body as? String else { return }
+
+            switch message.name {
+            case "logHandler":
                 print(logMessage)
+            case "requestSession":
+                // TODO: start AR session
+                print("starting AR session")
+//                ARManager.shared.StartARSession()   // FIXME: do we need it here?
+                self.parent.viewModel.isArMode = true
+            default:
+                print("message.name: \(message.name)")
+                print("message.body: \(message.body)")
             }
+
         }
+
     }
     
 }

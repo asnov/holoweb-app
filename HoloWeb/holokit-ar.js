@@ -1,7 +1,18 @@
-var originalLog = console.log;
-console.log = function(message) {
-    originalLog(message); // Continue to log to the browser console
-    window.webkit.messageHandlers.logHandler.postMessage(String(message));
+const originalLog = console.log;
+console.log = function(...args) {
+    originalLog(args); // Continue to log to the browser console
+    for (let arg of args ) {
+        window.webkit.messageHandlers.logHandler.postMessage(String(arg));
+    }
+}
+
+const requestSessionOriginal = navigator.xr.requestSession;
+navigator.xr.requestSession = ( mode, sessionInit ) => {
+    console.log("requestSession() called with:", mode.toString(), sessionInit.toString());
+    window.webkit.messageHandlers.requestSession.postMessage(String(mode));
+    let result = requestSessionOriginal(mode, sessionInit)
+    console.log("requestSession returned:", result)
+    return result
 }
 
 console.log("holokit-ar.js loaded")

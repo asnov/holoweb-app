@@ -12,6 +12,7 @@ extension WebView {
         var urlString: String = "https://toji.github.io/webxr-particles/"
         var homePage: String = "https://immersive-web.github.io/webxr-samples/"
         var isFullScreen = false
+        var isArMode = false
         
         var canGoBack = false
         var canGoForward = false

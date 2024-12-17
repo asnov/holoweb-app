@@ -7,72 +7,89 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var webView = WebView.shared
+    @State private var isVisible = false
     
     var body: some View {
-        
-        VStack() {
-            webView
-                .ignoresSafeArea(webView.viewModel.isFullScreen ? .all : .keyboard)
-                .statusBarHidden(webView.viewModel.isFullScreen)
+        GeometryReader { reader in
             
-            if !webView.viewModel.isFullScreen {
-                HStack {
-                    Button(action: {
-                        // TODO: Show info
-                    }) {
-                        Image(systemName: "info.circle")
-                    }
+            ZStack(alignment: .top) {
+                VStack() {
+                    webView
+                        .ignoresSafeArea(webView.viewModel.isFullScreen ? .all : .keyboard)
+                        .statusBarHidden(webView.viewModel.isFullScreen)
                     
-                    TextField("Enter address", text: $webView.viewModel.urlString)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
-                    Button(action: {
-                        webView.load()
-                    }) {
-                        Image(systemName: "arrow.clockwise")
+                    if !webView.viewModel.isFullScreen {
+                        HStack {
+                            Button(action: {
+                                // TODO: Show info
+                            }) {
+                                Image(systemName: "info.circle")
+                            }
+                            
+                            TextField("Enter address", text: $webView.viewModel.urlString)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            
+                            Button(action: {
+                                webView.load()
+                            }) {
+                                Image(systemName: "arrow.clockwise")
+                            }
+                        }
+                        .padding([.leading, .trailing])
+                        .padding(.top, 8)
+                        
+                        HStack(spacing: 50) {
+                            Button(action: {
+                                webView.goBack()
+                            }) {
+                                Image(systemName: "chevron.left")
+                            }
+                            .disabled(!webView.viewModel.canGoBack)
+                            
+                            Button(action: {
+                                webView.goForward()
+                            }) {
+                                Image(systemName: "chevron.right")
+                            }
+                            .disabled(!webView.viewModel.canGoForward)
+                            
+                            Button(action: {
+                                // TODO: Share action
+                            }) {
+//                                Image(systemName: "square.and.arrow.up")
+                                Image("arrow-box")
+                            }
+                            
+                            Button(action: {
+                                webView.goHome()
+                            }) {
+                                Image("home-arrow")
+                            }
+                            
+                            Button(action: {
+                                // TODO: Screen list action
+                            }) {
+                                Image("four-squares")
+                            }
+                        }
+                        .padding()
                     }
-                }
-                .padding([.leading, .trailing])
-                .padding(.top, 8)
+                } /* VStack */
                 
-                HStack(spacing: 50) {
-                    Button(action: {
-                        webView.goBack()
-                    }) {
-                        Image(systemName: "chevron.left")
-                    }
-                    .disabled(!webView.viewModel.canGoBack)
-                    
-                    Button(action: {
-                        webView.goForward()
-                    }) {
-                        Image(systemName: "chevron.right")
-                    }
-                    .disabled(!webView.viewModel.canGoForward)
-                    
-                    Button(action: {
-                        // TODO: Share action
-                    }) {
-//                        Image(systemName: "square.and.arrow.up")
-                        Image("arrow-box")
-                    }
-                    
-                    Button(action: {
-                        webView.goHome()
-                    }) {
-                        Image("home-arrow")
-                    }
-                    
-                    Button(action: {
-                        // TODO: Screen list action
-                    }) {
-                        Image("four-squares")
-                    }
+                if webView.viewModel.isArMode {
+                    ARViewContainer()
+                        .ignoresSafeArea()
+                    DynamicIsland(
+                        size: reader.size,
+                        isVisible: $isVisible,
+                        isArMode: $webView.viewModel.isArMode)
                 }
-                .padding()
-            }
-        } /* VStack */
-        
+                
+            } /* ZStack */
+
+        } /* reader */
+        .ignoresSafeArea()
+        .statusBarHidden(webView.viewModel.isArMode || webView.viewModel.isFullScreen)
         
     } /* body */
 } /* ContentView */
