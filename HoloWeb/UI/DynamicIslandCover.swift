@@ -1,5 +1,5 @@
 //
-//  DynamicIsland.swift
+//  DynamicIslandCover.swift
 //  HoloWeb
 //
 //  Created by Alex on 16/12/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DynamicIsland: View {
+struct DynamicIslandCover: View {
     var size: CGSize
     @Binding var isVisible: Bool
     @Binding var isArMode: Bool
@@ -93,7 +93,7 @@ struct DynamicIsland: View {
 }
 
 #Preview {
-    DynamicIsland(
+    DynamicIslandCover(
         size: .init(width: 400, height: 150),
         isVisible: .constant(false),
         isArMode: .constant(false)
@@ -101,7 +101,7 @@ struct DynamicIsland: View {
     .frame(width: 300, height: 200)
     .background(.black)
     
-    DynamicIsland(
+    DynamicIslandCover(
         size: .init(width: 400, height: 150),
         isVisible: .constant(true),
         isArMode: .constant(false)

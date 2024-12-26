@@ -79,7 +79,7 @@ struct ContentView: View {
                 if webView.viewModel.isArMode {
                     ARViewContainer()
                         .ignoresSafeArea()
-                    DynamicIsland(
+                    DynamicIslandCover(
                         size: reader.size,
                         isVisible: $isVisible,
                         isArMode: $webView.viewModel.isArMode)
